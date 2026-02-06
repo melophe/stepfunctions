@@ -1,0 +1,13 @@
+{
+  "Comment": "Simple Hello World Step Functions workflow",
+  "StartAt": "HelloWorld",
+  "States": {
+    "HelloWorld": {
+      "Type": "Pass",
+      "Result": {
+        "message": "Hello, Step Functions!"
+      },
+      "End": true
+    }
+  }
+}
