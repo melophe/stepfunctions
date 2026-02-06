@@ -1,0 +1,31 @@
+{
+  "Comment": "Sequential workflow with multiple states",
+  "StartAt": "GetOrder",
+  "States": {
+    "GetOrder": {
+      "Type": "Pass",
+      "Result": {
+        "orderId": "12345",
+        "item": "Book",
+        "quantity": 2
+      },
+      "Next": "ProcessPayment"
+    },
+    "ProcessPayment": {
+      "Type": "Pass",
+      "Result": {
+        "paymentStatus": "success",
+        "transactionId": "txn-98765"
+      },
+      "Next": "ShipOrder"
+    },
+    "ShipOrder": {
+      "Type": "Pass",
+      "Result": {
+        "shipmentStatus": "shipped",
+        "trackingNumber": "TRACK-11111"
+      },
+      "End": true
+    }
+  }
+}
