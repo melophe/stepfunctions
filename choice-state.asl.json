@@ -1,0 +1,38 @@
+{
+  "Comment": "Choice state example - order amount check",
+  "StartAt": "CheckOrderAmount",
+  "States": {
+    "CheckOrderAmount": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.amount",
+          "NumericGreaterThan": 10000,
+          "Next": "RequireApproval"
+        },
+        {
+          "Variable": "$.amount",
+          "NumericLessThanEquals": 10000,
+          "Next": "AutoApprove"
+        }
+      ],
+      "Default": "AutoApprove"
+    },
+    "RequireApproval": {
+      "Type": "Pass",
+      "Result": {
+        "status": "pending_approval",
+        "message": "Order requires manager approval"
+      },
+      "End": true
+    },
+    "AutoApprove": {
+      "Type": "Pass",
+      "Result": {
+        "status": "approved",
+        "message": "Order auto-approved"
+      },
+      "End": true
+    }
+  }
+}
