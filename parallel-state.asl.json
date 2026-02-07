@@ -1,0 +1,55 @@
+{
+  "Comment": "Parallel state example - process order in parallel",
+  "StartAt": "ProcessOrderParallel",
+  "States": {
+    "ProcessOrderParallel": {
+      "Type": "Parallel",
+      "Branches": [
+        {
+          "StartAt": "CheckInventory",
+          "States": {
+            "CheckInventory": {
+              "Type": "Pass",
+              "Result": {
+                "inventory": "available"
+              },
+              "End": true
+            }
+          }
+        },
+        {
+          "StartAt": "ProcessPayment",
+          "States": {
+            "ProcessPayment": {
+              "Type": "Pass",
+              "Result": {
+                "payment": "success"
+              },
+              "End": true
+            }
+          }
+        },
+        {
+          "StartAt": "SendConfirmationEmail",
+          "States": {
+            "SendConfirmationEmail": {
+              "Type": "Pass",
+              "Result": {
+                "email": "sent"
+              },
+              "End": true
+            }
+          }
+        }
+      ],
+      "Next": "CompleteOrder"
+    },
+    "CompleteOrder": {
+      "Type": "Pass",
+      "Result": {
+        "status": "order completed"
+      },
+      "End": true
+    }
+  }
+}
