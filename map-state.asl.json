@@ -1,0 +1,30 @@
+{
+  "Comment": "Map state example - process multiple orders",
+  "StartAt": "ProcessOrders",
+  "States": {
+    "ProcessOrders": {
+      "Type": "Map",
+      "ItemsPath": "$.orders",
+      "Iterator": {
+        "StartAt": "ProcessSingleOrder",
+        "States": {
+          "ProcessSingleOrder": {
+            "Type": "Pass",
+            "Result": {
+              "status": "processed"
+            },
+            "End": true
+          }
+        }
+      },
+      "Next": "AllOrdersCompleted"
+    },
+    "AllOrdersCompleted": {
+      "Type": "Pass",
+      "Result": {
+        "message": "All orders have been processed"
+      },
+      "End": true
+    }
+  }
+}
